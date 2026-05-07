@@ -1,0 +1,1169 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio – Ali Bouzayen | Mini Projets Web</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --tp1: #FF6B35;
+    --tp1-light: #FFF0EB;
+    --tp2: #0F9D8C;
+    --tp2-light: #E6F7F5;
+    --tp3: #7B4FCC;
+    --tp3-light: #F0EAFF;
+    --tp4: #E8395A;
+    --tp4-light: #FDE8EC;
+    --tp5: #1A73E8;
+    --tp5-light: #E8F1FD;
+    --tp6: #2E7D32;
+    --tp6-light: #E8F5E9;
+    --dark: #0D0F14;
+    --mid: #1A1D24;
+    --card: #21252E;
+    --text: #F0F2F5;
+    --muted: #8A909C;
+    --border: rgba(255,255,255,0.07);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--dark);
+    color: var(--text);
+    overflow-x: hidden;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 4rem 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute; inset: 0; z-index: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 50% 10%, rgba(123,79,204,0.18) 0%, transparent 70%),
+      radial-gradient(ellipse 50% 40% at 20% 80%, rgba(255,107,53,0.12) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 40% at 80% 70%, rgba(26,115,232,0.10) 0%, transparent 60%);
+  }
+
+  .hero-grid {
+    position: absolute; inset: 0; z-index: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+
+  .hero-content { position: relative; z-index: 1; max-width: 800px; }
+
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 100px; padding: 6px 18px;
+    font-size: 0.78rem; font-weight: 500; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--muted);
+    margin-bottom: 2rem;
+    animation: fadeUp 0.6s ease both;
+  }
+
+  .hero-badge span { width: 6px; height: 6px; border-radius: 50%; background: #7B4FCC; }
+
+  .hero h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2.8rem, 7vw, 5.5rem);
+    font-weight: 800; line-height: 1.05;
+    letter-spacing: -0.03em;
+    animation: fadeUp 0.6s 0.1s ease both;
+  }
+
+  .hero h1 em {
+    font-style: normal;
+    background: linear-gradient(135deg, #FF6B35, #7B4FCC, #1A73E8);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-sub {
+    margin-top: 1.5rem; font-size: 1.15rem;
+    color: var(--muted); line-height: 1.7; max-width: 560px; margin-inline: auto;
+    animation: fadeUp 0.6s 0.2s ease both;
+  }
+
+  .hero-dots {
+    display: flex; gap: 10px; justify-content: center;
+    margin-top: 3rem;
+    animation: fadeUp 0.6s 0.3s ease both;
+  }
+
+  .hero-dot {
+    width: 10px; height: 10px; border-radius: 50%;
+    cursor: pointer; transition: transform 0.3s;
+    border: 2px solid rgba(255,255,255,0.2);
+  }
+  .hero-dot:hover { transform: scale(1.4); }
+
+  .scroll-hint {
+    position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+    font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.15em;
+    color: var(--muted); animation: fadeUp 0.6s 0.5s ease both;
+  }
+
+  .scroll-hint-line {
+    width: 1px; height: 40px;
+    background: linear-gradient(to bottom, var(--muted), transparent);
+    animation: scrollPulse 2s infinite;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(13,15,20,0.85);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 3rem;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 64px;
+  }
+
+  .nav-logo {
+    font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.1rem;
+    letter-spacing: -0.02em;
+  }
+
+  .nav-logo span { color: var(--tp3); }
+
+  .nav-links { display: flex; gap: 4px; }
+
+  .nav-links a {
+    text-decoration: none; color: var(--muted); font-size: 0.83rem;
+    padding: 6px 14px; border-radius: 6px;
+    transition: all 0.2s; font-weight: 500;
+  }
+
+  .nav-links a:hover { color: var(--text); background: rgba(255,255,255,0.06); }
+
+  /* ── TP SECTIONS ── */
+  .tp-section {
+    min-height: 100vh;
+    padding: 7rem 3rem;
+    position: relative; overflow: hidden;
+  }
+
+  .tp-section:nth-child(odd) { background: var(--dark); }
+  .tp-section:nth-child(even) { background: var(--mid); }
+
+  .tp-inner {
+    max-width: 1200px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center;
+  }
+
+  .tp-section:nth-child(even) .tp-inner { direction: rtl; }
+  .tp-section:nth-child(even) .tp-info { direction: ltr; }
+  .tp-section:nth-child(even) .tp-visual { direction: ltr; }
+
+  .tp-number {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.72rem; font-weight: 700; letter-spacing: 0.2em;
+    text-transform: uppercase; margin-bottom: 1.2rem;
+    display: flex; align-items: center; gap: 10px;
+  }
+
+  .tp-number::after {
+    content: ''; flex: 1; max-width: 40px; height: 1px;
+    background: currentColor; opacity: 0.4;
+  }
+
+  .tp-info h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    font-weight: 800; line-height: 1.1;
+    letter-spacing: -0.03em; margin-bottom: 1rem;
+  }
+
+  .tp-tagline {
+    font-size: 1rem; color: var(--muted); line-height: 1.7;
+    margin-bottom: 2rem; max-width: 420px;
+  }
+
+  .features-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+    margin-bottom: 2rem;
+  }
+
+  .feature-item {
+    display: flex; align-items: flex-start; gap: 10px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--border);
+    border-radius: 10px; padding: 12px 14px;
+    font-size: 0.83rem; line-height: 1.5;
+    transition: all 0.2s;
+  }
+
+  .feature-item:hover { background: rgba(255,255,255,0.07); transform: translateY(-1px); }
+
+  .feature-icon { font-size: 1rem; flex-shrink: 0; margin-top: 1px; }
+
+  .tech-row {
+    display: flex; flex-wrap: wrap; gap: 8px;
+    margin-bottom: 2rem;
+  }
+
+  .tech-badge {
+    font-size: 0.74rem; font-weight: 600; letter-spacing: 0.05em;
+    padding: 5px 12px; border-radius: 100px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    color: var(--muted);
+  }
+
+  .cta-btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 14px 28px; border-radius: 10px;
+    font-family: 'Syne', sans-serif; font-weight: 700;
+    font-size: 0.9rem; text-decoration: none;
+    transition: all 0.3s; position: relative; overflow: hidden;
+    border: none; cursor: pointer;
+  }
+
+  .cta-btn::before {
+    content: ''; position: absolute; inset: 0;
+    background: rgba(255,255,255,0.15);
+    transform: translateX(-100%); transition: transform 0.4s;
+  }
+
+  .cta-btn:hover::before { transform: translateX(0); }
+  .cta-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(0,0,0,0.3); }
+
+  .cta-arrow { font-size: 1.1rem; transition: transform 0.3s; }
+  .cta-btn:hover .cta-arrow { transform: translateX(4px); }
+
+  /* ── MOCKUP VISUALS ── */
+  .tp-visual { position: relative; }
+
+  .mockup-wrap {
+    position: relative; border-radius: 20px; overflow: visible;
+  }
+
+  .browser-chrome {
+    background: #2A2D38;
+    border-radius: 14px 14px 0 0;
+    padding: 10px 16px;
+    display: flex; align-items: center; gap: 8px;
+    border: 1px solid rgba(255,255,255,0.08);
+    border-bottom: none;
+  }
+
+  .dot-r { width: 10px; height: 10px; border-radius: 50%; background: #FF5F57; }
+  .dot-y { width: 10px; height: 10px; border-radius: 50%; background: #FFBD2E; }
+  .dot-g { width: 10px; height: 10px; border-radius: 50%; background: #28C940; }
+
+  .url-bar {
+    flex: 1; background: rgba(255,255,255,0.06);
+    border-radius: 6px; padding: 4px 10px;
+    font-size: 0.72rem; color: var(--muted);
+    margin-left: 8px; font-family: monospace;
+  }
+
+  .app-screen {
+    border: 1px solid rgba(255,255,255,0.08);
+    border-top: none; border-radius: 0 0 14px 14px;
+    overflow: hidden;
+  }
+
+  .glow-ring {
+    position: absolute; inset: -1px; border-radius: 15px;
+    pointer-events: none; z-index: -1;
+    filter: blur(20px); opacity: 0.5;
+  }
+
+  /* ── TP1 MiniBudget ── */
+  .screen-tp1 { background: #0F1117; padding: 24px; min-height: 380px; }
+
+  .budget-header {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 20px;
+  }
+
+  .budget-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.1rem; }
+  .budget-total-chip {
+    background: rgba(255,107,53,0.15); border: 1px solid rgba(255,107,53,0.3);
+    color: #FF6B35; border-radius: 8px; padding: 6px 14px;
+    font-size: 0.85rem; font-weight: 600;
+  }
+
+  .budget-stats { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; margin-bottom: 18px; }
+
+  .stat-card {
+    background: rgba(255,255,255,0.04); border: 1px solid var(--border);
+    border-radius: 10px; padding: 14px;
+  }
+
+  .stat-label { font-size: 0.68rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px; }
+  .stat-val { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.1rem; }
+
+  .expense-row {
+    display: flex; align-items: center; gap: 10px;
+    background: rgba(255,255,255,0.03); border-radius: 8px;
+    padding: 10px 12px; margin-bottom: 8px;
+  }
+
+  .exp-cat { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .exp-name { flex: 1; font-size: 0.83rem; }
+  .exp-amount { font-weight: 600; font-size: 0.88rem; }
+
+  .budget-bar-wrap { margin-top: 14px; }
+  .budget-bar-label { display: flex; justify-content: space-between; font-size: 0.72rem; color: var(--muted); margin-bottom: 6px; }
+  .budget-bar { height: 6px; background: rgba(255,255,255,0.08); border-radius: 10px; overflow: hidden; }
+  .budget-bar-fill { height: 100%; border-radius: 10px; background: linear-gradient(90deg, #FF6B35, #FF9F6B); width: 73%; }
+
+  /* ── TP2 SmartPlanner ── */
+  .screen-tp2 { background: #0A1614; padding: 20px; min-height: 380px; }
+
+  .planner-header { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1rem; margin-bottom: 16px; color: #0FC8B5; }
+
+  .planning-grid-wrap { overflow-x: auto; }
+
+  .planning-table { width: 100%; border-collapse: collapse; font-size: 0.72rem; }
+  .planning-table th {
+    background: rgba(15,157,140,0.15); color: #0FC8B5;
+    padding: 8px 10px; text-align: center;
+    border: 1px solid rgba(15,157,140,0.2);
+    font-weight: 600; white-space: nowrap;
+  }
+
+  .planning-table td {
+    padding: 8px 10px; text-align: center;
+    border: 1px solid rgba(255,255,255,0.05);
+    font-size: 0.70rem;
+  }
+
+  .cell-filled {
+    background: rgba(15,157,140,0.12);
+    color: #0FC8B5; font-weight: 600;
+    border-radius: 4px;
+  }
+
+  .cell-empty { color: var(--muted); }
+
+  .planner-legend { display: flex; gap: 12px; margin-top: 14px; flex-wrap: wrap; }
+
+  .legend-item { display: flex; align-items: center; gap: 6px; font-size: 0.70rem; color: var(--muted); }
+  .legend-dot { width: 8px; height: 8px; border-radius: 3px; }
+
+  /* ── TP3 QuizBuilder ── */
+  .screen-tp3 { background: #100D1A; padding: 24px; min-height: 380px; }
+
+  .quiz-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+  .quiz-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1rem; }
+
+  .quiz-progress-ring { width: 48px; height: 48px; position: relative; }
+  .quiz-progress-ring svg { transform: rotate(-90deg); }
+  .quiz-progress-ring .ring-bg { fill: none; stroke: rgba(123,79,204,0.2); stroke-width: 3; }
+  .quiz-progress-ring .ring-fill { fill: none; stroke: #7B4FCC; stroke-width: 3; stroke-dasharray: 113; stroke-dashoffset: 28; stroke-linecap: round; }
+  .ring-label { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 0.65rem; font-weight: 700; }
+
+  .quiz-question { font-size: 0.88rem; font-weight: 500; line-height: 1.6; margin-bottom: 16px; color: #E0DCF0; }
+
+  .quiz-options { display: grid; gap: 8px; }
+
+  .quiz-option {
+    display: flex; align-items: center; gap: 10px;
+    padding: 11px 14px; border-radius: 9px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    font-size: 0.80rem; cursor: pointer; transition: all 0.2s;
+  }
+
+  .quiz-option.correct { background: rgba(46,125,50,0.18); border-color: rgba(46,125,50,0.4); color: #81C784; }
+  .quiz-option.wrong { background: rgba(232,57,90,0.12); border-color: rgba(232,57,90,0.3); color: #EF9A9A; }
+  .quiz-option.selected { background: rgba(123,79,204,0.15); border-color: rgba(123,79,204,0.4); }
+
+  .opt-letter { width: 22px; height: 22px; border-radius: 6px; background: rgba(255,255,255,0.07); display: flex; align-items: center; justify-content: center; font-size: 0.68rem; font-weight: 700; flex-shrink: 0; }
+
+  /* ── TP4 TextAnalyzer ── */
+  .screen-tp4 { background: #140A0D; padding: 22px; min-height: 380px; }
+
+  .text-header { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1rem; color: #F06080; margin-bottom: 16px; }
+
+  .text-area-mock {
+    background: rgba(255,255,255,0.04); border: 1px solid rgba(232,57,90,0.2);
+    border-radius: 10px; padding: 14px; font-size: 0.75rem; color: var(--muted);
+    line-height: 1.6; margin-bottom: 16px; min-height: 80px;
+  }
+
+  .stats-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 10px; margin-bottom: 14px; }
+
+  .stat-block {
+    background: rgba(255,255,255,0.04); border: 1px solid var(--border);
+    border-radius: 10px; padding: 12px;
+  }
+
+  .stat-block-val { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.4rem; }
+  .stat-block-lbl { font-size: 0.68rem; color: var(--muted); margin-top: 2px; }
+
+  .complexity-bar-wrap { }
+  .complexity-label { display: flex; justify-content: space-between; font-size: 0.72rem; color: var(--muted); margin-bottom: 6px; }
+  .complexity-bar { height: 8px; background: rgba(255,255,255,0.06); border-radius: 10px; overflow: hidden; }
+  .complexity-fill { height: 100%; border-radius: 10px; background: linear-gradient(90deg, #E8395A, #FF6B8A); width: 62%; }
+
+  .freq-words { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
+  .freq-word { font-size: 0.72rem; background: rgba(232,57,90,0.1); border: 1px solid rgba(232,57,90,0.2); border-radius: 100px; padding: 3px 10px; color: #F06080; }
+
+  /* ── TP5 SecurePass ── */
+  .screen-tp5 { background: #080E1A; padding: 24px; min-height: 380px; }
+
+  .pass-header { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1rem; color: #4A90E8; margin-bottom: 20px; }
+
+  .pass-output {
+    background: rgba(26,115,232,0.08); border: 1px solid rgba(26,115,232,0.25);
+    border-radius: 12px; padding: 16px;
+    font-family: 'Courier New', monospace; font-size: 0.95rem; font-weight: 700;
+    letter-spacing: 0.12em; color: #7EB8FF;
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 16px;
+  }
+
+  .copy-icon { font-size: 1rem; cursor: pointer; opacity: 0.6; }
+
+  .strength-wrap { margin-bottom: 16px; }
+  .strength-label { display: flex; justify-content: space-between; align-items: center; font-size: 0.78rem; margin-bottom: 8px; }
+  .strength-txt { color: #4ADE80; font-weight: 600; font-size: 0.80rem; }
+  .strength-bar { display: flex; gap: 4px; }
+  .strength-seg { flex: 1; height: 5px; border-radius: 10px; background: rgba(255,255,255,0.08); }
+  .strength-seg.active { background: #4ADE80; }
+  .strength-seg.active.mid { background: #FACC15; }
+  .strength-seg.active.low { background: #F87171; }
+
+  .pass-options { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 16px; }
+
+  .pass-option {
+    display: flex; align-items: center; gap: 8px;
+    background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 8px; padding: 10px 12px; font-size: 0.78rem;
+    cursor: pointer;
+  }
+
+  .toggle { width: 28px; height: 16px; border-radius: 20px; position: relative; flex-shrink: 0; }
+  .toggle.on { background: #1A73E8; }
+  .toggle.off { background: rgba(255,255,255,0.12); }
+  .toggle::after { content: ''; width: 12px; height: 12px; background: white; border-radius: 50%; position: absolute; top: 2px; transition: left 0.2s; }
+  .toggle.on::after { left: 14px; }
+  .toggle.off::after { left: 2px; }
+
+  .pass-slider-wrap { }
+  .slider-label { display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--muted); margin-bottom: 6px; }
+  .slider-track { height: 4px; background: rgba(255,255,255,0.08); border-radius: 10px; position: relative; }
+  .slider-fill { height: 100%; width: 70%; background: #1A73E8; border-radius: 10px; }
+  .slider-thumb { width: 14px; height: 14px; background: white; border-radius: 50%; position: absolute; top: -5px; left: 70%; transform: translateX(-50%); box-shadow: 0 2px 6px rgba(0,0,0,0.4); }
+
+  /* ── TP6 StudentGrade ── */
+  .screen-tp6 { background: #080F09; padding: 20px; min-height: 380px; }
+
+  .grade-header { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1rem; color: #4CAF74; margin-bottom: 16px; display: flex; justify-content: space-between; align-items: center; }
+
+  .class-avg { background: rgba(46,125,50,0.15); border: 1px solid rgba(46,125,50,0.3); color: #66BB6A; border-radius: 8px; padding: 5px 12px; font-size: 0.80rem; font-weight: 600; }
+
+  .grade-table { width: 100%; border-collapse: collapse; font-size: 0.72rem; }
+  .grade-table th { background: rgba(46,125,50,0.12); color: #66BB6A; padding: 9px 10px; text-align: left; border-bottom: 1px solid rgba(46,125,50,0.2); font-weight: 600; }
+  .grade-table td { padding: 9px 10px; border-bottom: 1px solid rgba(255,255,255,0.04); }
+
+  .grade-badge { display: inline-block; padding: 2px 8px; border-radius: 5px; font-weight: 700; font-size: 0.80rem; }
+  .grade-a { background: rgba(46,125,50,0.2); color: #66BB6A; }
+  .grade-b { background: rgba(26,115,232,0.2); color: #64B5F6; }
+  .grade-c { background: rgba(255,193,7,0.15); color: #FFD54F; }
+
+  .avg-val { font-weight: 700; font-family: 'Syne', sans-serif; font-size: 0.90rem; }
+
+  .del-btn { width: 20px; height: 20px; border-radius: 4px; background: rgba(232,57,90,0.12); color: #EF9A9A; font-size: 0.70rem; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+
+  /* ── SECTIONS EXTRAS ── */
+  .accordion-section { margin-top: 2rem; }
+
+  .acc-item {
+    border: 1px solid var(--border); border-radius: 10px;
+    margin-bottom: 8px; overflow: hidden;
+  }
+
+  .acc-head {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 14px 18px; cursor: pointer;
+    font-size: 0.85rem; font-weight: 500;
+    background: rgba(255,255,255,0.03);
+    transition: background 0.2s;
+  }
+
+  .acc-head:hover { background: rgba(255,255,255,0.06); }
+  .acc-arrow { font-size: 0.70rem; transition: transform 0.3s; }
+  .acc-item.open .acc-arrow { transform: rotate(180deg); }
+
+  .acc-body {
+    max-height: 0; overflow: hidden; transition: max-height 0.4s ease;
+    padding: 0 18px;
+    font-size: 0.82rem; color: var(--muted); line-height: 1.7;
+  }
+
+  .acc-item.open .acc-body { max-height: 300px; padding: 14px 18px; }
+
+  /* ── FOOTER ── */
+  footer {
+    text-align: center; padding: 5rem 2rem 3rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .footer-logo { font-family: 'Syne', sans-serif; font-size: 1.3rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 1rem; }
+
+  .footer-links { display: flex; justify-content: center; gap: 2rem; margin-bottom: 1.5rem; }
+  .footer-links a { text-decoration: none; color: var(--muted); font-size: 0.83rem; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--text); }
+
+  .footer-copy { font-size: 0.75rem; color: var(--muted); }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 1; }
+  }
+
+  .fade-in {
+    opacity: 0; transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .fade-in.visible { opacity: 1; transform: none; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    .tp-inner { grid-template-columns: 1fr; gap: 3rem; }
+    .tp-section:nth-child(even) .tp-inner { direction: ltr; }
+    nav { padding: 0 1.5rem; }
+    .nav-links { display: none; }
+    .tp-section { padding: 5rem 1.5rem; }
+    .features-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-badge"><span></span> Portfolio Web · 2024–2025</div>
+    <h1>Mini Projets<br><em>Ali Bouzayen</em></h1>
+    <p class="hero-sub">Six applications web modernes développées avec HTML, CSS et JavaScript — chacune résolvant un besoin concret avec une interface soignée.</p>
+    <div class="hero-dots">
+      <div class="hero-dot" style="background:#FF6B35" onclick="document.getElementById('tp1').scrollIntoView({behavior:'smooth'})"></div>
+      <div class="hero-dot" style="background:#0F9D8C" onclick="document.getElementById('tp2').scrollIntoView({behavior:'smooth'})"></div>
+      <div class="hero-dot" style="background:#7B4FCC" onclick="document.getElementById('tp3').scrollIntoView({behavior:'smooth'})"></div>
+      <div class="hero-dot" style="background:#E8395A" onclick="document.getElementById('tp4').scrollIntoView({behavior:'smooth'})"></div>
+      <div class="hero-dot" style="background:#1A73E8" onclick="document.getElementById('tp5').scrollIntoView({behavior:'smooth'})"></div>
+      <div class="hero-dot" style="background:#2E7D32" onclick="document.getElementById('tp6').scrollIntoView({behavior:'smooth'})"></div>
+    </div>
+  </div>
+  <div class="scroll-hint">
+    <div class="scroll-hint-line"></div>
+    Défiler
+  </div>
+</section>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Ali<span>.</span>dev</div>
+  <div class="nav-links">
+    <a href="#tp1">MiniBudget</a>
+    <a href="#tp2">SmartPlanner</a>
+    <a href="#tp3">QuizBuilder</a>
+    <a href="#tp4">TextAnalyzer</a>
+    <a href="#tp5">SecurePass</a>
+    <a href="#tp6">GradeManager</a>
+  </div>
+</nav>
+
+<!-- TP1 -->
+<section class="tp-section" id="tp1">
+  <div class="tp-inner">
+    <div class="tp-info fade-in">
+      <div class="tp-number" style="color:var(--tp1)">TP 01</div>
+      <h2>Mini<span style="color:var(--tp1)">Budget</span></h2>
+      <p class="tp-tagline">Prenez le contrôle de vos finances personnelles. Suivez chaque dépense, visualisez vos habitudes et recevez une alerte avant de dépasser votre budget.</p>
+
+      <div class="features-grid">
+        <div class="feature-item"><span class="feature-icon">➕</span><span>Ajout rapide d'une dépense avec montant et catégorie</span></div>
+        <div class="feature-item"><span class="feature-icon">📋</span><span>Liste dynamique triée par date</span></div>
+        <div class="feature-item"><span class="feature-icon">📊</span><span>Total global et total par catégorie calculés en temps réel</span></div>
+        <div class="feature-item"><span class="feature-icon">🔔</span><span>Alerte visuelle si dépassement du budget fixé</span></div>
+        <div class="feature-item"><span class="feature-icon">💾</span><span>Sauvegarde automatique via localStorage</span></div>
+        <div class="feature-item"><span class="feature-icon">📈</span><span>Indicateur de progression du budget</span></div>
+      </div>
+
+      <div class="tech-row">
+        <span class="tech-badge">HTML5</span><span class="tech-badge">CSS3</span>
+        <span class="tech-badge">JavaScript ES6</span><span class="tech-badge">localStorage</span>
+        <span class="tech-badge">DOM Manipulation</span>
+      </div>
+
+      <div class="accordion-section">
+        <div class="acc-item" onclick="toggleAcc(this)">
+          <div class="acc-head">Interface & Design <span class="acc-arrow">▼</span></div>
+          <div class="acc-body">Navbar épurée avec logo et bouton "Nouveau budget". Formulaire d'ajout flottant avec champs Montant, Catégorie et Date. Cartes de statistiques (Total, Alimentation, Transport…) avec indicateurs colorés. Barre de progression orange signalant le taux d'utilisation du budget. Design dark responsive avec accents orange vif.</div>
+        </div>
+        <div class="acc-item" onclick="toggleAcc(this)">
+          <div class="acc-head">Fonctionnement <span class="acc-arrow">▼</span></div>
+          <div class="acc-body">L'utilisateur saisit un montant et choisit une catégorie. L'application met à jour instantanément les totaux via des événements DOM. Les données persistent en localStorage entre les sessions. Un seuil de budget peut être configuré, déclenchant une alerte dès le dépassement.</div>
+        </div>
+        <div class="acc-item" onclick="toggleAcc(this)">
+          <div class="acc-head">Améliorations possibles <span class="acc-arrow">▼</span></div>
+          <div class="acc-body">Export PDF/CSV des dépenses, graphiques en camembert par catégorie, filtres par mois/semaine, notifications push, synchronisation cloud, mode multi-budgets et historique mensuel comparatif.</div>
+        </div>
+      </div>
+
+      <a href="https://ali-bouzayen.github.io/mini_budget/" target="_blank" class="cta-btn" style="background:var(--tp1);color:#fff;margin-top:2rem;">
+        Voir le projet <span class="cta-arrow">→</span>
+      </a>
+    </div>
+
+    <div class="tp-visual fade-in">
+      <div class="mockup-wrap">
+        <div class="glow-ring" style="background:radial-gradient(ellipse,rgba(255,107,53,0.4),transparent 70%)"></div>
+        <div class="browser-chrome">
+          <div class="dot-r"></div><div class="dot-y"></div><div class="dot-g"></div>
+          <div class="url-bar">ali-bouzayen.github.io/mini_budget/</div>
+        </div>
+        <div class="app-screen">
+          <div class="screen-tp1">
+            <div class="budget-header">
+              <div class="budget-title">💰 MiniBudget</div>
+              <div class="budget-total-chip">Budget: 500 DT</div>
+            </div>
+            <div class="budget-stats">
+              <div class="stat-card"><div class="stat-label">Total dépensé</div><div class="stat-val" style="color:#FF6B35">365 DT</div></div>
+              <div class="stat-card"><div class="stat-label">Alimentation</div><div class="stat-val">142 DT</div></div>
+              <div class="stat-card"><div class="stat-label">Transport</div><div class="stat-val">78 DT</div></div>
+            </div>
+            <div class="expense-row"><div class="exp-cat" style="background:#FF6B35"></div><div class="exp-name">Restaurant Le Palmier</div><div class="exp-amount" style="color:#FF6B35">–45 DT</div></div>
+            <div class="expense-row"><div class="exp-cat" style="background:#1A73E8"></div><div class="exp-name">Ticket Métro × 10</div><div class="exp-amount" style="color:#64B5F6">–28 DT</div></div>
+            <div class="expense-row"><div class="exp-cat" style="background:#7B4FCC"></div><div class="exp-name">Librairie Clartés</div><div class="exp-amount" style="color:#B39DDB">–32 DT</div></div>
+            <div class="expense-row"><div class="exp-cat" style="background:#0F9D8C"></div><div class="exp-name">Courses Carrefour</div><div class="exp-amount" style="color:#4DB6AC">–97 DT</div></div>
+            <div class="budget-bar-wrap">
+              <div class="budget-bar-label"><span>Utilisation du budget</span><span style="color:#FF6B35">73%</span></div>
+              <div class="budget-bar"><div class="budget-bar-fill"></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TP2 -->
+<section class="tp-section" id="tp2">
+  <div class="tp-inner">
+    <div class="tp-info fade-in">
+      <div class="tp-number" style="color:var(--tp2)">TP 02</div>
+      <h2>Smart<span style="color:var(--tp2)">Planner</span></h2>
+      <p class="tp-tagline">Générez un planning hebdomadaire optimisé en quelques secondes. Entrez vos matières et le nombre d'heures souhaité — l'algorithme construit le tableau pour vous.</p>
+
+      <div class="features-grid">
+        <div class="feature-item"><span class="feature-icon">📚</span><span>Saisie libre des matières et heures allouées</span></div>
+        <div class="feature-item"><span class="feature-icon">🗓️</span><span>Génération automatique d'un tableau hebdomadaire</span></div>
+        <div class="feature-item"><span class="feature-icon">🎨</span><span>Couleur unique assignée à chaque matière</span></div>
+        <div class="feature-item"><span class="feature-icon">🔄</span><span>Bouton réinitialiser pour repartir de zéro</span></div>
+        <div class="feature-item"><span class="feature-icon">📱</span><span>Design entièrement responsive</span></div>
+        <div class="feature-item"><span class="feature-icon">⚖️</span><span>Répartition équilibrée sur les jours</span></div>
+      </div>
+
+      <div class="tech-row">
+        <span class="tech-badge">HTML5</span><span class="tech-badge">CSS Grid</span>
+        <span class="tech-badge">JavaScript</span><span class="tech-badge">Algorithme de planning</span>
+        <span class="tech-badge">Responsive Design</span>
+      </div>
+
+      <div class="accordion-section">
+        <div class="acc-item" onclick="toggleAcc(this)">
+          <div class="acc-head">Interface & Design <span class="acc-arrow">▼</span></div>
+          <div class="acc-body">Panneau de saisie à gauche avec liste de matières dynamique. Tableau de planning à droite avec colonnes Lundi-Vendredi et créneaux horaires de 8h à 18h. Chaque matière possède une couleur distincte. Boutons "Générer" et "Réinitialiser" bien visibles. Thème vert teal sur fond sombre.</div>
+        </div>
+        <div class="acc-item" onclick="toggleAcc(this)">
+          <div class="acc-head">Fonctionnement <span class="acc-arrow">▼</span></div>
+          <div class="acc-body">L'utilisateur ajoute ses matières avec le volume horaire. En cliquant sur "Générer", l'algorithme répartit équitablement les créneaux sur la semaine, en évitant les conflits horaires. Le résultat s'affiche dans un tableau coloré interactif.</div>
+        </div>
+        <div class="acc-item" onclick="toggleAcc(this)">
+          <div class="acc-head">Améliorations possibles <span class="acc-arrow">▼</span></div>
+          <div class="acc-body">Glisser-déposer pour repositionner les créneaux, export PDF ou image, contraintes horaires personnalisées (pas avant 9h, pause déjeuner fixe), intégration Google Calendar, notifications de rappel.</div>
+        </div>
+      </div>
+
+      <a href="https://ali-bouzayen.github.io/smart_planner/" target="_blank" class="cta-btn" style="background:var(--tp2);color:#fff;margin-top:2rem;">
+        Voir le projet <span class="cta-arrow">→</span>
+      </a>
+    </div>
+
+    <div class="tp-visual fade-in">
+      <div class="mockup-wrap">
+        <div class="glow-ring" style="background:radial-gradient(ellipse,rgba(15,157,140,0.35),transparent 70%)"></div>
+        <div class="browser-chrome">
+          <div class="dot-r"></div><div class="dot-y"></div><div class="dot-g"></div>
+          <div class="url-bar">ali-bouzayen.github.io/smart_planner/</div>
+        </div>
+        <div class="app-screen">
+          <div class="screen-tp2">
+            <div class="planner-header">📅 SmartPlanner — Semaine 3</div>
+            <div class="planning-grid-wrap">
+              <table class="planning-table">
+                <tr>
+                  <th>Horaire</th><th>Lundi</th><th>Mardi</th><th>Mercredi</th><th>Jeudi</th><th>Vendredi</th>
+                </tr>
+                <tr>
+                  <td style="color:var(--muted);font-size:0.68rem">08h–10h</td>
+                  <td class="cell-filled">Maths</td>
+                  <td class="cell-empty">—</td>
+                  <td class="cell-filled" style="background:rgba(26,115,232,0.12);color:#64B5F6">Physique</td>
+                  <td class="cell-empty">—</td>
+                  <td class="cell-filled">Maths</td>
+                </tr>
+                <tr>
+                  <td style="color:var(--muted);font-size:0.68rem">10h–12h</td>
+                  <td class="cell-empty">—</td>
+                  <td class="cell-filled" style="background:rgba(123,79,204,0.12);color:#CE93D8">Info</td>
+                  <td class="cell-empty">—</td>
+                  <td class="cell-filled">Maths</td>
+                  <td class="cell-empty">—</td>
+                </tr>
+                <tr>
+                  <td style="color:var(--muted);font-size:0.68rem">14h–16h</td>
+                  <td class="cell-filled" style="background:rgba(26,115,232,0.12);color:#64B5F6">Physique</td>
+                  <td class="cell-empty">—</td>
+                  <td class="cell-filled" style="background:rgba(123,79,204,0.12);color:#CE93D8">Info</td>
+                  <td class="cell-empty">—</td>
+                  <td class="cell-filled" style="background:rgba(255,193,7,0.12);color:#FFD54F">Anglais</td>
+                </tr>
+                <tr>
+                  <td style="color:var(--muted);font-size:0.68rem">16h–18h</td>
+                  <td class="cell-empty">—</td>
+                  <td class="cell-filled" style="background:rgba(255,193,7,0.12);color:#FFD54F">Anglais</td>
+                  <td class="cell-empty">—</td>
+                  <td class="cell-filled" style="background:rgba(123,79,204,0.12);color:#CE93D8">Info</td>
+                  <td class="cell-empty">—</td>
+                </tr>
+              </table>
+            </div>
+            <div class="planner-legend">
+              <div class="legend-item"><div class="legend-dot" style="background:#0FC8B5"></div>Maths (6h)</div>
+              <div class="legend-item"><div class="legend-dot" style="background:#64B5F6"></div>Physique (4h)</div>
+              <div class="legend-item"><div class="legend-dot" style="background:#CE93D8"></div>Info (6h)</div>
+              <div class="legend-item"><div class="legend-dot" style="background:#FFD54F"></div>Anglais (4h)</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TP3 -->
+<section class="tp-section" id="tp3">
+  <div class="tp-inner">
+    <div class="tp-info fade-in">
+      <div class="tp-number" style="color:var(--tp3)">TP 03</div>
+      <h2>Quiz<span style="color:var(--tp3)">Builder</span></h2>
+      <p class="tp-tagline">Créez des quiz personnalisés en quelques clics, puis testez vos connaissances en mode jeu. Score automatique et résultat final détaillé.</p>
+
+      <div class="features-grid">
+        <div class="feature-item"><span class="feature-icon">❓</span><span>Ajout de questions illimitées</span></div>
+        <div class="feature-item"><span class="feature-icon">🔤</span><span>4 propositions par question avec choix de la bonne réponse</span></div>
+        <div class="feature-item"><span class="feature-icon">▶️</span><span>Mode quiz avec navigation question par question</span></div>
+        <div class="feature-item"><span class="feature-icon">🎯</span><span>Calcul automatique du score final</span></div>
+        <div class="feature-item"><span class="feature-icon">🏆</span><span>Affichage du résultat avec feedback visuel</span></div>
+        <div class="feature-item"><span class="feature-icon">🔁</span><span>Relancer le quiz ou en créer un nouveau</span></div>
+      </div>
+
+      <div class="tech-row">
+        <span class="tech-badge">HTML5</span><span class="tech-badge">CSS3</span>
+        <span class="tech-badge">JavaScript</span><span class="tech-badge">Gestion d'état</span>
+        <span class="tech-badge">Animations CSS</span>
+      </div>
+
+      <div class="accordion-section">
+        <div class="acc-item" onclick="toggleAcc(this)">
+          <div class="acc-head">Interface & Design <span class="acc-arrow">▼</span></div>
+          <div class="acc-body">Mode Création: formulaire structuré pour ajouter questions et réponses, avec indication de la bonne réponse en vert. Mode Quiz: affichage centré de la question, 4 boutons de réponse avec feedback immédiat (vert/rouge), barre de progression circulaire. Mode Résultat: score en grand avec mention et bouton rejouer. Thème violet sombre élégant.</div>
+        </div>
+        <div class="acc-item" onclick="toggleAcc(this)">
+          <div class="acc-head">Fonctionnement <span class="acc-arrow">▼</span></div>
+          <div class="acc-body">Phase de création: l'utilisateur ajoute ses questions et marque la bonne réponse. Lancement du quiz: les questions s'affichent aléatoirement. À chaque réponse, un feedback visuel indique si elle est correcte. En fin de quiz, le score s'affiche avec un message personnalisé selon la performance.</div>
+        </div>
+        <div class="acc-item" onclick="toggleAcc(this)">
+          <div class="acc-head">Améliorations possibles <span class="acc-arrow">▼</span></div>
+          <div class="acc-body">Minuteur par question, catégories de quiz, import/export de quiz en JSON, mode multijoueur, classement des scores, explications de réponse, questions à choix multiples ou vrai/faux, images dans les questions.</div>
+        </div>
+      </div>
+
+      <a href="https://ali-bouzayen.github.io/quiz/" target="_blank" class="cta-btn" style="background:var(--tp3);color:#fff;margin-top:2rem;">
+        Voir le projet <span class="cta-arrow">→</span>
+      </a>
+    </div>
+
+    <div class="tp-visual fade-in">
+      <div class="mockup-wrap">
+        <div class="glow-ring" style="background:radial-gradient(ellipse,rgba(123,79,204,0.4),transparent 70%)"></div>
+        <div class="browser-chrome">
+          <div class="dot-r"></div><div class="dot-y"></div><div class="dot-g"></div>
+          <div class="url-bar">ali-bouzayen.github.io/quiz/</div>
+        </div>
+        <div class="app-screen">
+          <div class="screen-tp3">
+            <div class="quiz-header">
+              <div class="quiz-title">🎯 QuizBuilder</div>
+              <div class="quiz-progress-ring">
+                <svg width="48" height="48" viewBox="0 0 40 40">
+                  <circle class="ring-bg" cx="20" cy="20" r="18"/>
+                  <circle class="ring-fill" cx="20" cy="20" r="18"/>
+                </svg>
+                <div class="ring-label">3/4</div>
+              </div>
+            </div>
+            <div class="quiz-question">Quel langage est utilisé pour rendre une page web interactive côté client ?</div>
+            <div class="quiz-options">
+              <div class="quiz-option wrong"><div class="opt-letter" style="background:rgba(232,57,90,0.15);color:#EF9A9A">A</div>Python</div>
+              <div class="quiz-option correct"><div class="opt-letter" style="background:rgba(46,125,50,0.2);color:#81C784">B</div>JavaScript ✓</div>
+              <div class="quiz-option"><div class="opt-letter">C</div>PHP</div>
+              <div class="quiz-option selected"><div class="opt-letter" style="background:rgba(123,79,204,0.2);color:#CE93D8">D</div>Ruby</div>
+            </div>
+            <div style="margin-top:16px;display:flex;justify-content:space-between;align-items:center">
+              <div style="font-size:0.75rem;color:var(--muted)">Score actuel</div>
+              <div style="font-family:'Syne',sans-serif;font-weight:700;color:#7B4FCC;font-size:1.1rem">2 / 3</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TP4 -->
+<section class="tp-section" id="tp4">
+  <div class="tp-inner">
+    <div class="tp-info fade-in">
+      <div class="tp-number" style="color:var(--tp4)">TP 04</div>
+      <h2>Text<span style="color:var(--tp4)">Analyzer</span></h2>
+      <p class="tp-tagline">Analysez instantanément n'importe quel texte : comptage de mots, fréquences, longueur des phrases et indicateur de complexité linguistique.</p>
+
+      <div class="features-grid">
+        <div class="feature-item"><span class="feature-icon">🔢</span><span>Comptage en temps réel de mots et phrases</span></div>
+        <div class="feature-item"><span class="feature-icon">📊</span><span>Mots les plus fréquents classés par occurrence</span></div>
+        <div class="feature-item"><span class="feature-icon">📏</span><span>Longueur moyenne des phrases calculée automatiquement</span></div>
+        <div class="feature-item"><span class="feature-icon">🧠</span><span>Indicateur de complexité linguistique visuel</span></div>
+        <div class="feature-item"><span class="feature-icon">⚡</span><span>Mise à jour dynamique à chaque frappe</span></div>
+        <div class="feature-item"><span class="feature-icon">🔡</span><span>Comptage de caractères et paragraphes</span></div>
+      </div>
+
+      <div class="tech-row">
+        <span class="tech-badge">HTML5</span><span class="tech-badge">CSS3</span>
+        <span class="tech-badge">JavaScript</span><span class="tech-badge">Regex NLP</span>
+        <span class="tech-badge">Analyse textuelle</span>
+      </div>
+
+      <div class="accordion-section">
+        <div class="acc-item" onclick="toggleAcc(this)">
+          <div class="acc-head">Interface & Design <span class="acc-arrow">▼</span></div>
+          <div class="acc-body">Grande zone de texte centrale avec compteurs en temps réel en haut. Grille de statistiques sous le textarea : 4 cartes (Mots, Phrases, Caractères, Longueur moy.). Section "Mots fréquents" avec badges colorés. Barre de complexité graduée de Simple à Complexe. Thème rouge sombre expressif.</div>
+        </div>
+        <div class="acc-item" onclick="toggleAcc(this)">
+          <div class="acc-head">Fonctionnement <span class="acc-arrow">▼</span></div>
+          <div class="acc-body">L'utilisateur colle ou tape son texte. Les statistiques se recalculent à chaque modification via un événement "input". Les mots sont tokenisés, filtrés (mots-outils exclus) et comptés. La complexité est estimée selon la longueur moyenne des phrases et la richesse lexicale.</div>
+        </div>
+        <div class="acc-item" onclick="toggleAcc(this)">
+          <div class="acc-head">Améliorations possibles <span class="acc-arrow">▼</span></div>
+          <div class="acc-body">Détection automatique de la langue, score de lisibilité Flesch-Kincaid, nuage de mots interactif, comparaison de deux textes, analyse des sentiments, export du rapport d'analyse en PDF.</div>
+        </div>
+      </div>
+
+      <a href="https://ali-bouzayen.github.io/test_analyser/" target="_blank" class="cta-btn" style="background:var(--tp4);color:#fff;margin-top:2rem;">
+        Voir le projet <span class="cta-arrow">→</span>
+      </a>
+    </div>
+
+    <div class="tp-visual fade-in">
+      <div class="mockup-wrap">
+        <div class="glow-ring" style="background:radial-gradient(ellipse,rgba(232,57,90,0.35),transparent 70%)"></div>
+        <div class="browser-chrome">
+          <div class="dot-r"></div><div class="dot-y"></div><div class="dot-g"></div>
+          <div class="url-bar">ali-bouzayen.github.io/test_analyser/</div>
+        </div>
+        <div class="app-screen">
+          <div class="screen-tp4">
+            <div class="text-header">🔍 TextAnalyzer</div>
+            <div class="text-area-mock">
+              Le développement web moderne requiert une maîtrise approfondie des technologies front-end et back-end. JavaScript reste le langage incontournable pour créer des interfaces interactives et dynamiques. La compréhension des algorithmes optimise la qualité du code produit...
+            </div>
+            <div class="stats-grid">
+              <div class="stat-block"><div class="stat-block-val" style="color:#E8395A">48</div><div class="stat-block-lbl">Mots</div></div>
+              <div class="stat-block"><div class="stat-block-val" style="color:#FF8A80">3</div><div class="stat-block-lbl">Phrases</div></div>
+              <div class="stat-block"><div class="stat-block-val" style="color:#FFAB91">312</div><div class="stat-block-lbl">Caractères</div></div>
+              <div class="stat-block"><div class="stat-block-val" style="color:#E8395A">16</div><div class="stat-block-lbl">Mots / phrase</div></div>
+            </div>
+            <div class="complexity-bar-wrap">
+              <div class="complexity-label"><span>Complexité</span><span style="color:#E8395A">Intermédiaire</span></div>
+              <div class="complexity-bar"><div class="complexity-fill"></div></div>
+            </div>
+            <div class="freq-words">
+              <span class="freq-word">web ×3</span>
+              <span class="freq-word">JavaScript ×2</span>
+              <span class="freq-word">code ×2</span>
+              <span class="freq-word">moderne ×1</span>
+              <span class="freq-word">algorithmique ×1</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TP5 -->
+<section class="tp-section" id="tp5">
+  <div class="tp-inner">
+    <div class="tp-info fade-in">
+      <div class="tp-number" style="color:var(--tp5)">TP 05</div>
+      <h2>SecurePass<br><span style="color:var(--tp5)">Generator</span></h2>
+      <p class="tp-tagline">Générez des mots de passe ultra-sécurisés selon vos critères. Longueur, composition, niveau de sécurité — tout est paramétrable en un clic.</p>
+
+      <div class="features-grid">
+        <div class="feature-item"><span class="feature-icon">📐</span><span>Choix de la longueur (8 à 64 caractères)</span></div>
+        <div class="feature-item"><span class="feature-icon">🔠</span><span>Options : majuscules, minuscules, chiffres, symboles</span></div>
+        <div class="feature-item"><span class="feature-icon">⚡</span><span>Génération instantanée du mot de passe</span></div>
+        <div class="feature-item"><span class="feature-icon">🔒</span><span>Indicateur de niveau de sécurité (Faible → Fort)</span></div>
+        <div class="feature-item"><span class="feature-icon">📋</span><span>Copie en un clic dans le presse-papiers</span></div>
+        <div class="feature-item"><span class="feature-icon">🎲</span><span>Entropie cryptographique (Math.random sécurisé)</span></div>
+      </div>
+
+      <div class="tech-row">
+        <span class="tech-badge">HTML5</span><span class="tech-badge">CSS3</span>
+        <span class="tech-badge">JavaScript</span><span class="tech-badge">Clipboard API</span>
+        <span class="tech-badge">Crypto Entropy</span>
+      </div>
+
+      <div class="accordion-section">
+        <div class="acc-item" onclick="toggleAcc(this)">
+          <div class="acc-head">Interface & Design <span class="acc-arrow">▼</span></div>
+          <div class="acc-body">Carte centrale avec affichage du mot de passe en police monospace. Slider de longueur avec valeur affichée en temps réel. Toggle switches pour chaque option de caractères. Barre de force avec 4 segments colorés (rouge → vert). Bouton "Copier" avec confirmation visuelle. Thème bleu nuit profond.</div>
+        </div>
+        <div class="acc-item" onclick="toggleAcc(this)">
+          <div class="acc-head">Fonctionnement <span class="acc-arrow">▼</span></div>
+          <div class="acc-body">L'utilisateur configure ses critères puis clique "Générer". L'algorithme sélectionne aléatoirement des caractères dans les jeux activés, garantissant la présence d'au moins un caractère de chaque type sélectionné. Le score de sécurité est calculé selon la longueur et la diversité des caractères.</div>
+        </div>
+        <div class="acc-item" onclick="toggleAcc(this)">
+          <div class="acc-head">Améliorations possibles <span class="acc-arrow">▼</span></div>
+          <div class="acc-body">Historique des mots de passe générés, vérification si le mot de passe a été compromis (API HaveIBeenPwned), génération de phrases de passe (passphrase), mode hors-ligne, extension navigateur, QR code du mot de passe.</div>
+        </div>
+      </div>
+
+      <a href="https://ali-bouzayen.github.io/secure_pass/" target="_blank" class="cta-btn" style="background:var(--tp5);color:#fff;margin-top:2rem;">
+        Voir le projet <span class="cta-arrow">→</span>
+      </a>
+    </div>
+
+    <div class="tp-visual fade-in">
+      <div class="mockup-wrap">
+        <div class="glow-ring" style="background:radial-gradient(ellipse,rgba(26,115,232,0.35),transparent 70%)"></div>
+        <div class="browser-chrome">
+          <div class="dot-r"></div><div class="dot-y"></div><div class="dot-g"></div>
+          <div class="url-bar">ali-bouzayen.github.io/secure_pass/</div>
+        </div>
+        <div class="app-screen">
+          <div class="screen-tp5">
+            <div class="pass-header">🔐 SecurePass Generator</div>
+            <div class="pass-output">
+              <span>K#9mXqL@2nPv$</span>
+              <span class="copy-icon">📋</span>
+            </div>
+            <div class="strength-wrap">
+              <div class="strength-label">
+                <span style="font-size:0.78rem;color:var(--muted)">Niveau de sécurité</span>
+                <span class="strength-txt">🔒 Très Fort</span>
+              </div>
+              <div class="strength-bar">
+                <div class="strength-seg active"></div>
+                <div class="strength-seg active"></div>
+                <div class="strength-seg active"></div>
+                <div class="strength-seg active"></div>
+              </div>
+            </div>
+            <div class="pass-options">
+              <div class="pass-option"><div class="toggle on"></div>Majuscules</div>
+              <div class="pass-option"><div class="toggle on"></div>Minuscules</div>
+              <div class="pass-option"><div class="toggle on"></div>Chiffres</div>
+              <div class="pass-option"><div class="toggle on"></div>Symboles</div>
+            </div>
+            <div class="pass-slider-wrap">
+              <div class="slider-label"><span>Longueur</span><span style="color:#4A90E8;font-weight:700">14 caractères</span></div>
+              <div class="slider-track">
+                <div class="slider-fill"></div>
+                <div class="slider-thumb"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TP6 -->
+<section class="tp-section" id="tp6">
+  <div class="tp-inner">
+    <div class="tp-info fade-in">
+      <div class="tp-number" style="color:var(--tp6)">TP 06</div>
+      <h2>Student<span style="color:var(--tp6)">Grade</span> Manager</h2>
+      <p class="tp-tagline">Gérez les notes de toute une classe en un tableau de bord clair. Ajoutez des étudiants, entrez leurs notes par matière et obtenez les moyennes instantanément.</p>
+
+      <div class="features-grid">
+        <div class="feature-item"><span class="feature-icon">👤</span><span>Ajout et suppression d'étudiants</span></div>
+        <div class="feature-item"><span class="feature-icon">📝</span><span>Notes par matière avec validation saisie</span></div>
+        <div class="feature-item"><span class="feature-icon">📊</span><span>Moyenne individuelle calculée automatiquement</span></div>
+        <div class="feature-item"><span class="feature-icon">🏫</span><span>Moyenne générale de la classe en temps réel</span></div>
+        <div class="feature-item"><span class="feature-icon">🗂️</span><span>Tableau dynamique trié et filtrable</span></div>
+        <div class="feature-item"><span class="feature-icon">💾</span><span>Sauvegarde locale des données entre sessions</span></div>
+      </div>
+
+      <div class="tech-row">
+        <span class="tech-badge">HTML5</span><span class="tech-badge">CSS Grid</span>
+        <span class="tech-badge">JavaScript</span><span class="tech-badge">localStorage</span>
+        <span class="tech-badge">Tableaux dynamiques</span>
+      </div>
+
+      <div class="accordion-section">
+        <div class="acc-item" onclick="toggleAcc(this)">
+          <div class="acc-head">Interface & Design <span class="acc-arrow">▼</span></div>
+          <div class="acc-body">Barre supérieure avec moyenne de classe et bouton "Ajouter étudiant". Tableau principal avec colonnes : Nom, Maths, Physique, Informatique, Anglais, Moyenne, Mention, Action. Mentions colorées (A vert, B bleu, C jaune). Bouton poubelle rouge par ligne. Formulaire modal pour l'ajout. Thème vert forest.</div>
+        </div>
+        <div class="acc-item" onclick="toggleAcc(this)">
+          <div class="acc-head">Fonctionnement <span class="acc-arrow">▼</span></div>
+          <div class="acc-body">L'enseignant ajoute des étudiants via un formulaire et entre leurs notes par matière. La moyenne de chaque étudiant et la moyenne générale de la classe se recalculent en temps réel. Les données persistent en localStorage, permettant de retrouver la classe à la prochaine session.</div>
+        </div>
+        <div class="acc-item" onclick="toggleAcc(this)">
+          <div class="acc-head">Améliorations possibles <span class="acc-arrow">▼</span></div>
+          <div class="acc-body">Export Excel/PDF du relevé de notes, graphique d'évolution par étudiant, coefficients par matière, gestion de plusieurs classes, import CSV, statistiques avancées (médiane, écart-type), système de notation par lettre configurable.</div>
+        </div>
+      </div>
+
+      <a href="https://ali-bouzayen.github.io/student_manager/" target="_blank" class="cta-btn" style="background:var(--tp6);color:#fff;margin-top:2rem;">
+        Voir le projet <span class="cta-arrow">→</span>
+      </a>
+    </div>
+
+    <div class="tp-visual fade-in">
+      <div class="mockup-wrap">
+        <div class="glow-ring" style="background:radial-gradient(ellipse,rgba(46,125,50,0.35),transparent 70%)"></div>
+        <div class="browser-chrome">
+          <div class="dot-r"></div><div class="dot-y"></div><div class="dot-g"></div>
+          <div class="url-bar">ali-bouzayen.github.io/student_manager/</div>
+        </div>
+        <div class="app-screen">
+          <div class="screen-tp6">
+            <div class="grade-header">
+              🎓 StudentGrade Manager
+              <div class="class-avg">Moy. classe : 14.2 / 20</div>
+            </div>
+            <table class="grade-table">
+              <thead>
+                <tr>
+                  <th>Étudiant</th><th>Maths</th><th>Info</th><th>Phys.</th><th>Angl.</th><th>Moy.</th><th>Mention</th><th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Ahmed B.</td><td>17</td><td>18</td><td>16</td><td>15</td>
+                  <td><span class="avg-val" style="color:#66BB6A">16.5</span></td>
+                  <td><span class="grade-badge grade-a">A</span></td>
+                  <td><div class="del-btn">✕</div></td>
+                </tr>
+                <tr>
+                  <td>Salma K.</td><td>14</td><td>15</td><td>13</td><td>16</td>
+                  <td><span class="avg-val" style="color:#64B5F6">14.5</span></td>
+                  <td><span class="grade-badge grade-b">B</span></td>
+                  <td><div class="del-btn">✕</div></td>
+                </tr>
+                <tr>
+                  <td>Yassine M.</td><td>11</td><td>12</td><td>10</td><td>13</td>
+                  <td><span class="avg-val" style="color:#FFD54F">11.5</span></td>
+                  <td><span class="grade-badge grade-c">C</span></td>
+                  <td><div class="del-btn">✕</div></td>
+                </tr>
+                <tr>
+                  <td>Nour H.</td><td>16</td><td>17</td><td>15</td><td>18</td>
+                  <td><span class="avg-val" style="color:#66BB6A">16.5</span></td>
+                  <td><span class="grade-badge grade-a">A</span></td>
+                  <td><div class="del-btn">✕</div></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Ali<span style="color:var(--tp3)">.</span>Bouzayen</div>
+  <div class="footer-links">
+    <a href="https://ali-bouzayen.github.io/mini_budget/" target="_blank">MiniBudget</a>
+    <a href="https://ali-bouzayen.github.io/smart_planner/" target="_blank">SmartPlanner</a>
+    <a href="https://ali-bouzayen.github.io/quiz/" target="_blank">QuizBuilder</a>
+    <a href="https://ali-bouzayen.github.io/test_analyser/" target="_blank">TextAnalyzer</a>
+    <a href="https://ali-bouzayen.github.io/secure_pass/" target="_blank">SecurePass</a>
+    <a href="https://ali-bouzayen.github.io/student_manager/" target="_blank">GradeManager</a>
+  </div>
+  <div class="footer-copy">© 2025 Ali Bouzayen — Tous les projets sont disponibles sur GitHub Pages</div>
+</footer>
+
+<script>
+  // Accordion toggle
+  function toggleAcc(el) {
+    const isOpen = el.classList.contains('open');
+    document.querySelectorAll('.acc-item.open').forEach(i => i.classList.remove('open'));
+    if (!isOpen) el.classList.add('open');
+  }
+
+  // Scroll fade-in observer
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); }
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  // Stagger the two fade-ins in each section
+  document.querySelectorAll('.tp-inner').forEach(inner => {
+    const children = inner.querySelectorAll('.fade-in');
+    children.forEach((child, i) => {
+      child.style.transitionDelay = (i * 0.15) + 's';
+    });
+  });
+</script>
+</body>
+</html>
